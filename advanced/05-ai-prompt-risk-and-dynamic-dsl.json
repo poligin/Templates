@@ -1,0 +1,32 @@
+{
+  "$schema": "https://poligin.dev/schemas/policy-template-v1.json",
+  "schema_version": "poligin/v1",
+  "kind": "PolicyTemplate",
+  "template_key": "ai-prompt-risk-and-dynamic-dsl",
+  "name": "Advanced AI Risk & Dynamic Department Attribute DSL",
+  "description": "Enforces context-aware evaluation using Poligin's fast-path DSL. Blocks transactions if the actor's security department does not match or if context parameters violate safety rules.",
+  "metadata": {
+    "author": "Poligin Community",
+    "difficulty": "advanced",
+    "category": "dsl-ai-governance"
+  },
+  "roles": [
+    "operator",
+    "developer"
+  ],
+  "groups": [
+    "core-engineering"
+  ],
+  "actions": [
+    "database.mutate",
+    "config.write",
+    "infra.scale"
+  ],
+  "resources": [
+    "db:production/*",
+    "infra:prod/*"
+  ],
+  "effect": "allow",
+  "priority": 300,
+  "conditions": "contains(actor.roles, \"operator\") && startsWith(resource.uri, \"db:production/\")"
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://poligin.dev/schemas/policy-template-v1.json",
+  "schema_version": "poligin/v1",
+  "kind": "PolicyTemplate",
+  "template_key": "mcp-tool-sandbox-guardrail",
+  "name": "MCP Server Tool Execution Sandbox",
+  "description": "Restricts AI agent MCP tool calls to safe, non-destructive tools while blocking arbitrary command execution and root system tampering.",
+  "metadata": {
+    "author": "Poligin Community",
+    "difficulty": "intermediate",
+    "category": "mcp-agent-safety"
+  },
+  "roles": [
+    "ai_agent",
+    "mcp_caller",
+    "assistant"
+  ],
+  "groups": [
+    "ai-workloads"
+  ],
+  "actions": [
+    "execute_command",
+    "terminal.run",
+    "shell.exec",
+    "system.shutdown",
+    "eval"
+  ],
+  "resources": [
+    "system/*",
+    "/etc/*",
+    "/bin/*",
+    "/usr/bin/*",
+    "terminal:*"
+  ],
+  "effect": "deny",
+  "priority": 500,
+  "conditions": ""
+}

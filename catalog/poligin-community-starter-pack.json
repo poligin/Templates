@@ -1,0 +1,163 @@
+{
+  "$schema": "https://poligin.dev/schemas/policy-template-bundle-v1.json",
+  "schema_version": "poligin/v1",
+  "kind": "PolicyTemplateBundle",
+  "exported_at": "2026-10-14T08:50:00Z",
+  "source_tenant": "community-hub",
+  "count": 5,
+  "templates": [
+    {
+      "schema_version": "poligin/v1",
+      "kind": "PolicyTemplate",
+      "template_key": "read-only-auditor",
+      "name": "Read-Only Compliance & Auditor Access",
+      "description": "Grants read-only inspection access to compliance officers and security auditors across all system documents and logs without permitting any modification or deletion.",
+      "roles": [
+        "auditor",
+        "compliance_officer",
+        "security_reviewer"
+      ],
+      "groups": [
+        "compliance-team",
+        "audit-dept"
+      ],
+      "actions": [
+        "file.read",
+        "file.list",
+        "audit.view",
+        "log.read",
+        "report.export"
+      ],
+      "resources": [
+        "docs/*",
+        "compliance/*",
+        "audit_logs/*",
+        "reports/*"
+      ],
+      "effect": "allow",
+      "priority": 100,
+      "conditions": ""
+    },
+    {
+      "schema_version": "poligin/v1",
+      "kind": "PolicyTemplate",
+      "template_key": "standard-operator",
+      "name": "Standard DevOps & Engineering Operator",
+      "description": "Standard template granting developers and operations engineers read, write, and directory listing permissions within active application workspaces.",
+      "roles": [
+        "operator",
+        "devops",
+        "developer",
+        "engineer"
+      ],
+      "groups": [
+        "engineering",
+        "devops-oncall"
+      ],
+      "actions": [
+        "read_file",
+        "write_file",
+        "list_directory",
+        "get_file_info",
+        "build.trigger"
+      ],
+      "resources": [
+        "file:workspace/*",
+        "file:scratch/*",
+        "file:data/app/*",
+        "build:pipelines/*"
+      ],
+      "effect": "allow",
+      "priority": 110,
+      "conditions": ""
+    },
+    {
+      "schema_version": "poligin/v1",
+      "kind": "PolicyTemplate",
+      "template_key": "zero-trust-credential-guardrail",
+      "name": "Zero-Trust Secret & Credential Exfiltration Guardrail",
+      "description": "High-priority deny override blocking any access, read, or exfiltration of sensitive identity files, private cryptographic keys, and credential stores.",
+      "roles": [
+        "*"
+      ],
+      "groups": [
+        "*"
+      ],
+      "actions": [
+        "*"
+      ],
+      "resources": [
+        "*.pem",
+        "*.key",
+        "*id_rsa*",
+        "*id_ed25519*",
+        "*/.ssh/*",
+        "*/.aws/credentials",
+        "*/.env",
+        "*/secrets.yaml",
+        "*/vault/*"
+      ],
+      "effect": "deny",
+      "priority": 999,
+      "conditions": ""
+    },
+    {
+      "schema_version": "poligin/v1",
+      "kind": "PolicyTemplate",
+      "template_key": "mcp-tool-sandbox-guardrail",
+      "name": "MCP Server Tool Execution Sandbox",
+      "description": "Restricts AI agent MCP tool calls to safe, non-destructive tools while blocking arbitrary command execution and root system tampering.",
+      "roles": [
+        "ai_agent",
+        "mcp_caller",
+        "assistant"
+      ],
+      "groups": [
+        "ai-workloads"
+      ],
+      "actions": [
+        "execute_command",
+        "terminal.run",
+        "shell.exec",
+        "system.shutdown",
+        "eval"
+      ],
+      "resources": [
+        "system/*",
+        "/etc/*",
+        "/bin/*",
+        "/usr/bin/*",
+        "terminal:*"
+      ],
+      "effect": "deny",
+      "priority": 500,
+      "conditions": ""
+    },
+    {
+      "schema_version": "poligin/v1",
+      "kind": "PolicyTemplate",
+      "template_key": "ai-prompt-risk-and-dynamic-dsl",
+      "name": "Advanced AI Risk & Dynamic Department Attribute DSL",
+      "description": "Enforces context-aware evaluation using Poligin's fast-path DSL. Blocks transactions if the actor's security department does not match or if context parameters violate safety rules.",
+      "roles": [
+        "operator",
+        "developer"
+      ],
+      "groups": [
+        "core-engineering"
+      ],
+      "actions": [
+        "database.mutate",
+        "config.write",
+        "infra.scale"
+      ],
+      "resources": [
+        "db:production/*",
+        "infra:prod/*"
+      ],
+      "effect": "allow",
+      "priority": 300,
+      "conditions": "contains(actor.roles, \"operator\") && startsWith(resource.uri, \"db:production/\")"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://poligin.dev/schemas/policy-template-v1.json",
+  "schema_version": "poligin/v1",
+  "kind": "PolicyTemplate",
+  "template_key": "standard-operator",
+  "name": "Standard DevOps & Engineering Operator",
+  "description": "Standard template granting developers and operations engineers read, write, and directory listing permissions within active application workspaces.",
+  "metadata": {
+    "author": "Poligin Community",
+    "difficulty": "basic",
+    "category": "operations"
+  },
+  "roles": [
+    "operator",
+    "devops",
+    "developer",
+    "engineer"
+  ],
+  "groups": [
+    "engineering",
+    "devops-oncall"
+  ],
+  "actions": [
+    "read_file",
+    "write_file",
+    "list_directory",
+    "get_file_info",
+    "build.trigger"
+  ],
+  "resources": [
+    "file:workspace/*",
+    "file:scratch/*",
+    "file:data/app/*",
+    "build:pipelines/*"
+  ],
+  "effect": "allow",
+  "priority": 110,
+  "conditions": ""
+}

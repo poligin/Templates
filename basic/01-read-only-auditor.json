@@ -1,0 +1,38 @@
+{
+  "$schema": "https://poligin.dev/schemas/policy-template-v1.json",
+  "schema_version": "poligin/v1",
+  "kind": "PolicyTemplate",
+  "template_key": "read-only-auditor",
+  "name": "Read-Only Compliance & Auditor Access",
+  "description": "Grants read-only inspection access to compliance officers and security auditors across all system documents and logs without permitting any modification or deletion.",
+  "metadata": {
+    "author": "Poligin Community",
+    "difficulty": "basic",
+    "category": "compliance"
+  },
+  "roles": [
+    "auditor",
+    "compliance_officer",
+    "security_reviewer"
+  ],
+  "groups": [
+    "compliance-team",
+    "audit-dept"
+  ],
+  "actions": [
+    "file.read",
+    "file.list",
+    "audit.view",
+    "log.read",
+    "report.export"
+  ],
+  "resources": [
+    "docs/*",
+    "compliance/*",
+    "audit_logs/*",
+    "reports/*"
+  ],
+  "effect": "allow",
+  "priority": 100,
+  "conditions": ""
+}
