@@ -1,6 +1,6 @@
 # Poligin Community Policy Templates Hub
 
-Welcome to the **Poligin Community Policy Templates Hub**! This directory contains curated, production-ready policy templates that can be directly imported into Poligin through the Poligin Web Dashboard or the REST API.
+Welcome to the **Poligin Community Policy Templates Hub**! This directory contains curated, production-ready policy templates that can be directly imported into Poligin (https://poligin.com) through the Poligin Web Dashboard or the REST API.
 
 ---
 
